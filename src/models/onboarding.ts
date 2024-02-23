@@ -4,11 +4,11 @@ import { Column, Entity } from "typeorm";
 @Entity()
 export class OnboardingState extends BaseEntity {
   @Column({ nullable: true })
-  current_step: string;
+  current_step!: string;
 
   @Column()
-  is_complete: boolean;
+  is_complete: boolean = false;
 
   @Column({ nullable: true })
-  product_id: string;
+  product_id!: string;
 }

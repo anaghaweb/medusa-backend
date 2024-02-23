@@ -57,6 +57,7 @@ const OrderDetailDefault = () => {
           href="https://docs.medusajs.com/recipes/?ref=onboarding"
           target="_blank"
           className="flex"
+          rel="noopener"
         >
           <div className="p-3 rounded-rounded items-start flex bg-ui-bg-subtle shadow-elevation-card-rest hover:shadow-elevation-card-hover">
             <div className="mr-4">
@@ -116,6 +117,7 @@ const OrderDetailDefault = () => {
           href="https://docs.medusajs.com/?ref=onboarding"
           target="_blank"
           className="text-ui-fg-interactive hover:text-ui-fg-interactive-hover"
+          rel="noopener"
         >
           our documentation
         </a>
@@ -124,6 +126,7 @@ const OrderDetailDefault = () => {
           href="https://github.com/medusajs/medusa"
           target="_blank"
           className="text-ui-fg-interactive hover:text-ui-fg-interactive-hover"
+          rel="noopener"
         >
           star us on GitHub
         </a>
