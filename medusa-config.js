@@ -26,7 +26,7 @@ try {
 const ADMIN_CORS = process.env.NEXT_PUBLIC_MEDUSA_ADMIN_BACKEND_URL || "http://localhost:7000,http://localhost:7001";
 
 // CORS to avoid issues when consuming Medusa from a client
-const STORE_CORS = process.env.NEXT_PUBLIC_MEDUSA_ADMIN_BACKEND_URL || "http://localhost:8000";
+const STORE_CORS = process.env.NEXT_PUBLIC_MEDUSA_ADMIN_BACKEND_URL || "http://192.168.0.104.8000/";
 
 const DATABASE_URL =
   process.env.DATABASE_URL || "postgres://localhost/medusa-starter-default";
@@ -47,6 +47,8 @@ const plugins = [
     /** @type {import('@medusajs/admin').PluginOptions} */
     options: {
       autoRebuild: true,
+      
+      serve: process.env.NODE_ENV === "development",
       develop: {
         open: process.env.OPEN_BROWSER !== "false",
       },
@@ -58,7 +60,7 @@ const plugins = [
 
 const modules = {
   eventBus: {
-    resolve: "@medusajs/event-bus-redis",
+    resolve: "@medusajs/event-bus-redis" || "@medusajs/event-bus-local",
     options: {
       redisUrl: REDIS_URL
     }
@@ -66,18 +68,32 @@ const modules = {
   cacheService: {
     resolve: "@medusajs/cache-redis",
     options: {
-      redisUrl: REDIS_URL
+      redisUrl: REDIS_URL || process.env.CACHE_REDIS_URL,
+      ttl:30,
     }
+  },
+  featureFlags: {
+    product_categories: true,
+    // ...
   },
 };
 
 /** @type {import('@medusajs/medusa').ConfigModule["projectConfig"]} */
 const projectConfig = {
-  jwtSecret: process.env.JWT_SECRET,
-  cookieSecret: process.env.COOKIE_SECRET,
+  database_logging: [
+    "query", "error",
+  ],
+  database_extra: 
+      process.env.NODE_ENV !== "development"
+        ? { ssl: { rejectUnauthorized: false } }
+        : {},
+    
+  
+  jwtSecret: process.env.JWT_SECRET || "supersecret",
+  cookieSecret: process.env.COOKIE_SECRET || 'supersecret',
   store_cors: STORE_CORS,
   database_type:"postgres",
-  database_url: DATABASE_URL,
+  database_url: DATABASE_URL || "postgres://postgres@localhost/medusa-store",
   admin_cors: ADMIN_CORS,
   // Uncomment the following lines to enable REDIS
    redis_url: REDIS_URL,
