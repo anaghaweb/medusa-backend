@@ -11,4 +11,6 @@ export class OnboardingState extends BaseEntity {
 
   @Column({ nullable: true })
   product_id!: string;
+
+  [key: string]: unknown;
 }
