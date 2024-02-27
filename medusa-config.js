@@ -72,10 +72,10 @@ const modules = {
       ttl:30,
     }
   },
-  featureFlags: {
-    product_categories: true,
-    // ...
-  },
+  // featureFlags: {
+  //   product_categories: true,
+  //   // ...
+  // },
 };
 
 /** @type {import('@medusajs/medusa').ConfigModule["projectConfig"]} */
