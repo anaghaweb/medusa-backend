@@ -18,7 +18,7 @@ class OnboardingService extends TransactionBaseService {
     this.onboardingRepository_ = onboardingRepository;
   }
 
-  async retrieve(): Promise<OnboardingState | undefined> {
+  async retrieve(): Promise<OnboardingState | null> {
     const onboardingRepo = this.activeManager_.withRepository(
       this.onboardingRepository_
     );
@@ -30,7 +30,7 @@ class OnboardingService extends TransactionBaseService {
     return status;
   }
 
-  async update(data: UpdateOnboardingStateInput): Promise<OnboardingState> {
+  async update(data: UpdateOnboardingStateInput): Promise<OnboardingState | null> {
     return await this.atomicPhase_(
       async (transactionManager: EntityManager) => {
         const onboardingRepository = transactionManager.withRepository(
@@ -40,10 +40,12 @@ class OnboardingService extends TransactionBaseService {
         const status = await this.retrieve();
 
         for (const [key, value] of Object.entries(data)) {
+          if(status !== null && key in status)
           status[key] = value;
         }
-
+        if(status)
         return await onboardingRepository.save(status);
+        else return null
       }
     );
   }
