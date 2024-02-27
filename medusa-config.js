@@ -26,7 +26,7 @@ try {
 const ADMIN_CORS = process.env.ADMIN_CORS || "https://medusa-supabase.vercel.app";
 
 // CORS to avoid issues when consuming Medusa from a client
-const STORE_CORS = process.env.NEXT_PUBLIC_MEDUSA_ADMIN_BACKEND_URL || "http://192.168.0.104.8000/";
+const STORE_CORS = process.env.STORE_CORS || "https://medusa-storefront-seven.vercel.app";
 
 const DATABASE_URL =
   process.env.DATABASE_URL || "postgres://localhost/medusa-starter-default";
