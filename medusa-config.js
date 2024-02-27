@@ -23,7 +23,7 @@ try {
 } catch (e) {}
 
 // CORS when consuming Medusa from admin
-const ADMIN_CORS = process.env.ADMIN_CORS || "http://localhost:7000,http://localhost:7001";
+const ADMIN_CORS = process.env.ADMIN_CORS || "https://medusa-supabase.vercel.app";
 
 // CORS to avoid issues when consuming Medusa from a client
 const STORE_CORS = process.env.NEXT_PUBLIC_MEDUSA_ADMIN_BACKEND_URL || "http://192.168.0.104.8000/";
@@ -46,7 +46,7 @@ const plugins = [
     resolve: "@medusajs/admin",
     /** @type {import('@medusajs/admin').PluginOptions} */
     options: {
-      autoRebuild: true,
+      autoRebuild: false,
       
       serve: process.env.NODE_ENV === "development",
       develop: {
